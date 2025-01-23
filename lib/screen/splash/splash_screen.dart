@@ -124,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: const Text(
                     'Welcome to Budget Tracker',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 53, 253, 233),
                       shadows: [
