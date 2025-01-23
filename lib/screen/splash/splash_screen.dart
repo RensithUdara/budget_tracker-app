@@ -8,8 +8,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
@@ -30,16 +29,14 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.5,
-            curve: Curves.easeInOut), // Fade in first half
+        curve: const Interval(0.0, 0.5, curve: Curves.easeInOut), // Fade in first half
       ),
     );
 
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.5,
-            curve: Curves.easeInOutBack), // Scale in first half
+        curve: const Interval(0.0, 0.5, curve: Curves.easeInOutBack), // Scale in first half
       ),
     );
 
@@ -47,16 +44,14 @@ class _SplashScreenState extends State<SplashScreen>
     _textFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.5, 1.0,
-            curve: Curves.easeInOut), // Fade in second half
+        curve: const Interval(0.5, 1.0, curve: Curves.easeInOut), // Fade in second half
       ),
     );
 
     _textScaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.5, 1.0,
-            curve: Curves.easeInOutBack), // Scale in second half
+        curve: const Interval(0.5, 1.0, curve: Curves.easeInOutBack), // Scale in second half
       ),
     );
 
@@ -89,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.purple.shade200],
+            colors: [Colors.blue.shade100, Colors.purple.shade100],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -121,12 +116,34 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _textScaleAnimation,
                 child: FadeTransition(
                   opacity: _textFadeAnimation,
-                  child: const Text(
+                  child: Text(
                     'Welcome to Budget Tracker',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black, // Outline color
+                          offset: const Offset(1, 1), // Shadow position
+                          blurRadius: 2, // Blur radius for the outline
+                        ),
+                        Shadow(
+                          color: Colors.black, // Outline color
+                          offset: const Offset(-1, -1), // Shadow position
+                          blurRadius: 2, // Blur radius for the outline
+                        ),
+                        Shadow(
+                          color: Colors.black, // Outline color
+                          offset: const Offset(1, -1), // Shadow position
+                          blurRadius: 2, // Blur radius for the outline
+                        ),
+                        Shadow(
+                          color: Colors.black, // Outline color
+                          offset: const Offset(-1, 1), // Shadow position
+                          blurRadius: 2, // Blur radius for the outline
+                        ),
+                      ],
                     ),
                   ),
                 ),
