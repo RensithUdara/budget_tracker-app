@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 53, 253, 233),
                       shadows: [
                         Shadow(
                           color: Colors.black, // Outline color
