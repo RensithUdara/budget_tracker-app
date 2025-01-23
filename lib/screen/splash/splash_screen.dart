@@ -84,7 +84,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade100, Colors.purple.shade100],
+  colors: [Colors.blue.shade200, Colors.purple.shade200],
+
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
