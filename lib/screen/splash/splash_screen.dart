@@ -8,7 +8,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
@@ -29,14 +30,16 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeInOut), // Fade in first half
+        curve: const Interval(0.0, 0.5,
+            curve: Curves.easeInOut), // Fade in first half
       ),
     );
 
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.5, curve: Curves.easeInOutBack), // Scale in first half
+        curve: const Interval(0.0, 0.5,
+            curve: Curves.easeInOutBack), // Scale in first half
       ),
     );
 
@@ -44,14 +47,16 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _textFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.5, 1.0, curve: Curves.easeInOut), // Fade in second half
+        curve: const Interval(0.5, 1.0,
+            curve: Curves.easeInOut), // Fade in second half
       ),
     );
 
     _textScaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.5, 1.0, curve: Curves.easeInOutBack), // Scale in second half
+        curve: const Interval(0.5, 1.0,
+            curve: Curves.easeInOutBack), // Scale in second half
       ),
     );
 
@@ -64,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         Future.delayed(const Duration(milliseconds: 1000), () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) =>  HomeScreen()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
           );
         });
       }
@@ -84,8 +89,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-  colors: [Colors.blue.shade200, Colors.purple.shade200],
-
+            colors: [Colors.blue.shade200, Colors.purple.shade200],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
