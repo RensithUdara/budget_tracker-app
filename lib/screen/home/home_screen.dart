@@ -15,62 +15,100 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Budget Tracker',
+          style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.black87),
+            onPressed: () {
+              // Add search functionality
+            },
+          ),
+        ],
+      ),
       body: PageView(
         controller: pageController,
         onPageChanged: (index) {
           controller.setIndex(index);
         },
         children: const [
-          AllSpending(),
-          SpendingComponent(),
-          AllCategory(),
-          CategoryComponent(),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: AllSpending(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: SpendingComponent(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: AllCategory(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: CategoryComponent(),
+          ),
         ],
       ),
       bottomNavigationBar: Obx(() {
-        return BottomNavigationBar(
-          type: BottomNavigationBarType.values[0],
-          currentIndex: controller.screenIndex.value,
-          onTap: (index) {
-            controller.setIndex(index);
-            pageController.jumpToPage(index);
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.cases_sharp,
-                color: Colors.black,
+        return Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 2,
+                blurRadius: 10,
+                offset: const Offset(0, -2),
               ),
-              label: 'All Spending',
-              backgroundColor: Colors.black,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.attach_money,
-                color: Colors.black,
+            ],
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: controller.screenIndex.value,
+            onTap: (index) {
+              controller.setIndex(index);
+              pageController.jumpToPage(index);
+            },
+            selectedItemColor: Colors.blueAccent,
+            unselectedItemColor: Colors.grey,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.cases_sharp),
+                label: 'All Spending',
               ),
-              label: 'Spending',
-              backgroundColor: Colors.black,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.balance,
-                color: Colors.black,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.attach_money),
+                label: 'Spending',
               ),
-              label: 'All Category',
-              backgroundColor: Colors.black,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.category,
-                color: Colors.black,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.balance),
+                label: 'All Category',
               ),
-              label: 'Category',
-              backgroundColor: Colors.black,
-            ),
-          ],
+              BottomNavigationBarItem(
+                icon: Icon(Icons.category),
+                label: 'Category',
+              ),
+            ],
+          ),
         );
       }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add new spending or category
+        },
+        backgroundColor: Colors.blueAccent,
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
     );
   }
 }
