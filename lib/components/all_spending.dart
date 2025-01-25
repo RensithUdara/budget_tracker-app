@@ -49,57 +49,75 @@ class AllSpending extends StatelessWidget {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Card(
+                                      elevation:
+                                          4, // Add elevation for a shadow effect
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
                                       color: Colors.transparent,
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            color: Colors.white60,
-                                            borderRadius:
-                                                BorderRadius.circular(14),
-                                            border:
-                                                Border.all(color: Colors.teal)),
+                                          color: Colors.white60,
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          border: Border.all(
+                                              color: Colors.teal, width: 2),
+                                        ),
                                         child: ListTile(
                                           onTap: () {
                                             Get.bottomSheet(
                                               Container(
-                                                height: 200,
+                                                height:
+                                                    250, // Increased height for better spacing
                                                 width: double.infinity,
-                                                margin: const EdgeInsets.all(10),
+                                                margin:
+                                                    const EdgeInsets.all(10),
                                                 decoration: BoxDecoration(
-                                                  color: Colors.teal,
+                                                  color: Colors.teal[
+                                                      800], // Darker shade for contrast
                                                   borderRadius:
                                                       BorderRadius.circular(15),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.2),
+                                                      blurRadius: 10,
+                                                      spreadRadius: 5,
+                                                    ),
+                                                  ],
                                                 ),
-                                                padding: const EdgeInsets.all(16),
+                                                padding:
+                                                    const EdgeInsets.all(16),
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
                                                         Text(
                                                           data.descripsion,
-                                                          style: const TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 26,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             color: Colors.white,
                                                           ),
                                                         ),
-                                                        const SizedBox(
-                                                          width: 40,
-                                                        ),
                                                         Text(
                                                           "Rs. ${data.amount}",
-                                                          style: const TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 24,
                                                             color: Colors.white,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
+                                                    const SizedBox(height: 20),
                                                     Row(
                                                       children: [
                                                         const Text(
@@ -113,16 +131,15 @@ class AllSpending extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           data.date,
-                                                          style: const TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 20,
                                                             color: Colors.white,
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                    const SizedBox(
-                                                      height: 10,
-                                                    ),
+                                                    const SizedBox(height: 20),
                                                     Row(
                                                       children: [
                                                         FutureBuilder(
@@ -159,25 +176,37 @@ class AllSpending extends StatelessWidget {
                                                             } else {
                                                               return const CircleAvatar(
                                                                 radius: 30,
+                                                                backgroundColor:
+                                                                    Colors.grey,
+                                                                child: Icon(
+                                                                    Icons
+                                                                        .person,
+                                                                    color: Colors
+                                                                        .white),
                                                               );
                                                             }
                                                           },
                                                         ),
                                                         const SizedBox(
-                                                          width: 20,
-                                                        ),
+                                                            width: 20),
                                                         const Spacer(),
                                                         IconButton(
                                                           onPressed: () {
-                                                            amtController.clear();
-                                                            desController.clear();
+                                                            amtController
+                                                                .clear();
+                                                            desController
+                                                                .clear();
                                                             controller
                                                                 .resetValues();
-                                    
+
                                                             Get.dialog(
                                                               AlertDialog(
-                                                                title: const Text(
+                                                                title:
+                                                                    const Text(
                                                                   "Update Spending",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .teal),
                                                                 ),
                                                                 content:
                                                                     Container(
@@ -186,16 +215,15 @@ class AllSpending extends StatelessWidget {
                                                                   padding:
                                                                       const EdgeInsets
                                                                           .all(
-                                                                    16,
-                                                                  ),
+                                                                          16),
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: Colors
-                                                                        .teal,
+                                                                            .teal[
+                                                                        800],
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                15),
+                                                                        BorderRadius.circular(
+                                                                            15),
                                                                   ),
                                                                   child: Form(
                                                                     key: key,
@@ -204,8 +232,7 @@ class AllSpending extends StatelessWidget {
                                                                       child:
                                                                           Column(
                                                                         mainAxisSize:
-                                                                            MainAxisSize
-                                                                                .min,
+                                                                            MainAxisSize.min,
                                                                         children: [
                                                                           TextFormField(
                                                                             controller:
@@ -219,31 +246,24 @@ class AllSpending extends StatelessWidget {
                                                                                 const TextStyle(color: Colors.white),
                                                                             decoration:
                                                                                 InputDecoration(
-                                                                              labelText:
-                                                                                  'Amount',
-                                                                              hintText:
-                                                                                  'Enter an amount',
-                                                                              labelStyle:
-                                                                                  const TextStyle(color: Colors.white),
-                                                                              border:
-                                                                                  OutlineInputBorder(
+                                                                              labelText: 'Amount',
+                                                                              hintText: 'Enter an amount',
+                                                                              labelStyle: const TextStyle(color: Colors.white),
+                                                                              border: OutlineInputBorder(
                                                                                 borderRadius: BorderRadius.circular(10),
                                                                               ),
-                                                                              focusedBorder:
-                                                                                  OutlineInputBorder(
+                                                                              focusedBorder: OutlineInputBorder(
                                                                                 borderSide: const BorderSide(color: Colors.deepPurple),
                                                                                 borderRadius: BorderRadius.circular(10),
                                                                               ),
-                                                                              errorBorder:
-                                                                                  OutlineInputBorder(
+                                                                              errorBorder: OutlineInputBorder(
                                                                                 borderSide: const BorderSide(color: Colors.red),
                                                                                 borderRadius: BorderRadius.circular(10),
                                                                               ),
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
-                                                                              height:
-                                                                                  16),
+                                                                              height: 16),
                                                                           TextFormField(
                                                                             controller:
                                                                                 desController,
@@ -254,35 +274,27 @@ class AllSpending extends StatelessWidget {
                                                                                 const TextStyle(color: Colors.white),
                                                                             decoration:
                                                                                 InputDecoration(
-                                                                              labelText:
-                                                                                  'Description',
-                                                                              hintText:
-                                                                                  'Enter a description',
-                                                                              labelStyle:
-                                                                                  const TextStyle(color: Colors.white),
-                                                                              border:
-                                                                                  OutlineInputBorder(
+                                                                              labelText: 'Description',
+                                                                              hintText: 'Enter a description',
+                                                                              labelStyle: const TextStyle(color: Colors.white),
+                                                                              border: OutlineInputBorder(
                                                                                 borderRadius: BorderRadius.circular(10),
                                                                               ),
-                                                                              focusedBorder:
-                                                                                  OutlineInputBorder(
+                                                                              focusedBorder: OutlineInputBorder(
                                                                                 borderSide: const BorderSide(color: Colors.deepPurple),
                                                                                 borderRadius: BorderRadius.circular(10),
                                                                               ),
-                                                                              errorBorder:
-                                                                                  OutlineInputBorder(
+                                                                              errorBorder: OutlineInputBorder(
                                                                                 borderSide: const BorderSide(color: Colors.red),
                                                                                 borderRadius: BorderRadius.circular(10),
                                                                               ),
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
-                                                                              height:
-                                                                                  16),
+                                                                              height: 16),
                                                                           Row(
                                                                             children: [
-                                                                              const Text("Mode:",
-                                                                                  style: TextStyle(color: Colors.white)),
+                                                                              const Text("Mode:", style: TextStyle(color: Colors.white)),
                                                                               const SizedBox(width: 8),
                                                                               DropdownButton<String>(
                                                                                 dropdownColor: const Color(0xff646464),
@@ -299,12 +311,10 @@ class AllSpending extends StatelessWidget {
                                                                             ],
                                                                           ),
                                                                           const SizedBox(
-                                                                              height:
-                                                                                  16),
+                                                                              height: 16),
                                                                           Row(
                                                                             children: [
-                                                                              const Text("Date: ",
-                                                                                  style: TextStyle(color: Colors.white)),
+                                                                              const Text("Date: ", style: TextStyle(color: Colors.white)),
                                                                               const SizedBox(width: 5),
                                                                               IconButton(
                                                                                 onPressed: () async {
@@ -320,8 +330,7 @@ class AllSpending extends StatelessWidget {
                                                                                 },
                                                                                 icon: const Icon(Icons.calendar_month, color: Colors.white),
                                                                               ),
-                                                                              if (controller.spendingDate !=
-                                                                                  null)
+                                                                              if (controller.spendingDate != null)
                                                                                 Text(
                                                                                   controller.spendingDate.toString().substring(0, 10),
                                                                                   style: const TextStyle(color: Colors.white),
@@ -347,18 +356,15 @@ class AllSpending extends StatelessWidget {
                                                                             .updateSpendings(
                                                                           model:
                                                                               SpendingModel(
-                                                                            id: data
-                                                                                .id,
+                                                                            id: data.id,
                                                                             descripsion:
                                                                                 desController.text,
                                                                             amount:
                                                                                 num.parse(amtController.text),
                                                                             mode:
                                                                                 controller.spendingMode!,
-                                                                            date: controller
-                                                                                .spendingDate
-                                                                                .toString()
-                                                                                .substring(0, 10),
+                                                                            date:
+                                                                                controller.spendingDate.toString().substring(0, 10),
                                                                             categoryId:
                                                                                 data.categoryId,
                                                                           ),
@@ -373,15 +379,19 @@ class AllSpending extends StatelessWidget {
                                                                             context);
                                                                       } else {
                                                                         Get.snackbar(
-                                                                            "Required",
-                                                                            "complete all field....",
-                                                                            backgroundColor: Colors
-                                                                                .red
-                                                                                .shade300);
+                                                                          "Required",
+                                                                          "Complete all fields...",
+                                                                          backgroundColor: Colors
+                                                                              .red
+                                                                              .shade300,
+                                                                        );
                                                                       }
                                                                     },
                                                                     child: const Text(
-                                                                        "Confirm"),
+                                                                        "Confirm",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.teal)),
                                                                   ),
                                                                 ],
                                                               ),
@@ -390,10 +400,9 @@ class AllSpending extends StatelessWidget {
                                                           icon: Row(
                                                             children: [
                                                               const Icon(
-                                                                Icons.edit,
-                                                                color:
-                                                                    Colors.white,
-                                                              ),
+                                                                  Icons.edit,
+                                                                  color: Colors
+                                                                      .white),
                                                               IconButton(
                                                                 onPressed:
                                                                     () async {
@@ -416,8 +425,10 @@ class AllSpending extends StatelessWidget {
                                                                       context);
                                                                 },
                                                                 icon: const Icon(
-                                                                    Icons.delete),
-                                                                color: Colors.red,
+                                                                    Icons
+                                                                        .delete),
+                                                                color:
+                                                                    Colors.red,
                                                               )
                                                             ],
                                                           ),
