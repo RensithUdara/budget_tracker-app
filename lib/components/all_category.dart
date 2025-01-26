@@ -11,7 +11,7 @@ class AllCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CategoryController controller = Get.put(CategoryController());
+    final CategoryController controller = Get.put(CategoryController());
     controller.fetchCategory();
 
     return Scaffold(
@@ -21,6 +21,7 @@ class AllCategory extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
+            fontSize: 20, // Increased font size for app bar title
           ),
         ),
         backgroundColor: Colors.teal,
@@ -28,309 +29,238 @@ class AllCategory extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon:
-                    const Icon(CupertinoIcons.search, color: Colors.teal),
-                hintText: 'Search',
-                filled: true,
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-              onChanged: (value) {
-                controller.searchCategory(search: value);
-              },
-            ),
-          ),
-          const SizedBox(height: 10),
+          // Search Bar
+          _buildSearchBar(controller),
+          const SizedBox(height: 16), // Increased spacing
+          // Category List
           Expanded(
             child: GetBuilder<CategoryController>(
               builder: (context) {
-                return FutureBuilder(
+                return FutureBuilder<List<CategoryModel>>(
                   future: controller.categoryList,
-                  builder: (context, snapShot) {
-                    if (snapShot.hasError) {
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
                       return Center(
                         child: Text(
-                          "ERROR: ${snapShot.error}",
-                          style: const TextStyle(color: Colors.red),
+                          "ERROR: ${snapshot.error}",
+                          style: const TextStyle(color: Colors.red, fontSize: 16),
                         ),
                       );
-                    } else if (snapShot.hasData) {
-                      List<CategoryModel> allCategoryData = snapShot.data ?? [];
-
-                      return allCategoryData.isNotEmpty
-                          ? ListView.builder(
-                              itemCount: allCategoryData.length,
-                              itemBuilder: (context, index) {
-                                CategoryModel data = allCategoryData[index];
-                                return Card(
-                                  elevation: 4,
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: ListTile(
-                                    leading: CircleAvatar(
-                                      radius: 26,
-                                      backgroundImage: MemoryImage(data.image),
-                                    ),
-                                    title: Text(
-                                      data.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    trailing: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          icon: const Icon(Icons.edit,
-                                              color: Colors.teal),
-                                          onPressed: () {
-                                            categoryController.text = data.name;
-                                            controller.updateIndex();
-
-                                            Get.bottomSheet(
-                                              Container(
-                                                width: double.infinity,
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20),
-                                                    topRight:
-                                                        Radius.circular(20),
-                                                  ),
-                                                ),
-                                                child: Form(
-                                                  key: formKey,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      const Text(
-                                                        "Update Category",
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      TextFormField(
-                                                        controller:
-                                                            categoryController,
-                                                        validator: (val) =>
-                                                            val!.isEmpty
-                                                                ? "Required"
-                                                                : null,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText: "Category",
-                                                          hintText:
-                                                              "Enter category...",
-                                                          filled: true,
-                                                          fillColor:
-                                                              Colors.grey[200],
-                                                          border:
-                                                              OutlineInputBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12),
-                                                            borderSide:
-                                                                BorderSide.none,
-                                                          ),
-                                                          focusedBorder:
-                                                              OutlineInputBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        12),
-                                                            borderSide:
-                                                                const BorderSide(
-                                                                    color: Colors
-                                                                        .teal),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      Expanded(
-                                                        child: GridView.builder(
-                                                          gridDelegate:
-                                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                                            crossAxisCount: 4,
-                                                            crossAxisSpacing:
-                                                                10,
-                                                            mainAxisSpacing: 10,
-                                                          ),
-                                                          itemCount:
-                                                              categoryImage
-                                                                  .length,
-                                                          itemBuilder: (context,
-                                                                  index) =>
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              controller
-                                                                  .changeIndex(
-                                                                      index:
-                                                                          index);
-                                                            },
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                border:
-                                                                    Border.all(
-                                                                  color: (controller
-                                                                              .categoryIndex ==
-                                                                          index)
-                                                                      ? Colors
-                                                                          .teal
-                                                                      : Colors
-                                                                          .transparent,
-                                                                ),
-                                                                image:
-                                                                    DecorationImage(
-                                                                  image: AssetImage(
-                                                                      categoryImage[
-                                                                          index]),
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                          height: 10),
-                                                      Center(
-                                                        child:
-                                                            ElevatedButton.icon(
-                                                          onPressed: () async {
-                                                            if (formKey
-                                                                    .currentState!
-                                                                    .validate() &&
-                                                                controller
-                                                                        .categoryIndex !=
-                                                                    null) {
-                                                              String name =
-                                                                  categoryController
-                                                                      .text;
-
-                                                              String assetPath =
-                                                                  categoryImage[
-                                                                      controller
-                                                                          .categoryIndex!];
-
-                                                              ByteData
-                                                                  byteData =
-                                                                  await rootBundle
-                                                                      .load(
-                                                                          assetPath);
-
-                                                              Uint8List image =
-                                                                  byteData
-                                                                      .buffer
-                                                                      .asUint8List();
-
-                                                              CategoryModel
-                                                                  model =
-                                                                  CategoryModel(
-                                                                id: data.id,
-                                                                name: name,
-                                                                image: image,
-                                                                imageId: controller
-                                                                    .categoryIndex!,
-                                                              );
-
-                                                              controller
-                                                                  .updateCategory(
-                                                                      model:
-                                                                          model);
-
-                                                              Navigator.pop(
-                                                                  context);
-                                                            }
-                                                          },
-                                                          icon: const Icon(
-                                                            Icons.save,
-                                                            color: Colors.white,
-                                                          ),
-                                                          label: const Text(
-                                                            "Update",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            backgroundColor:
-                                                                Colors.teal,
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          12),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                        IconButton(
-                                          icon: const Icon(Icons.delete,
-                                              color: Colors.red),
-                                          onPressed: () {
-                                            controller.deleteCategory(
-                                                id: allCategoryData[index].id);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            )
-                          : const Center(
-                              child: Text("No Category Available"),
-                            );
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          "No Category Available",
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                      );
+                    } else {
+                      return _buildCategoryList(snapshot.data!, controller);
                     }
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
                   },
                 );
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // Search Bar Widget
+  Widget _buildSearchBar(CategoryController controller) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0), // Increased padding
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: const Icon(CupertinoIcons.search, color: Colors.teal, size: 24),
+          hintText: 'Search',
+          hintStyle: const TextStyle(fontSize: 16), // Increased hint text size
+          filled: true,
+          fillColor: Colors.grey[200],
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20), // Better padding
+        ),
+        style: const TextStyle(fontSize: 16), // Increased text size
+        onChanged: (value) => controller.searchCategory(search: value),
+      ),
+    );
+  }
+
+  // Category List Widget
+  Widget _buildCategoryList(
+      List<CategoryModel> categories, CategoryController controller) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16), // Added horizontal padding
+      itemCount: categories.length,
+      itemBuilder: (context, index) {
+        final CategoryModel data = categories[index];
+        return Card(
+          elevation: 4,
+          margin: const EdgeInsets.symmetric(vertical: 8), // Adjusted margin
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), // Better padding
+            leading: CircleAvatar(
+              radius: 28, // Increased size
+              backgroundImage: MemoryImage(data.image),
+            ),
+            title: Text(
+              data.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18, // Increased font size
+              ),
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.edit, color: Colors.teal, size: 28), // Increased icon size
+                  onPressed: () => _showUpdateCategoryBottomSheet(data, controller),
+                ),
+                const SizedBox(width: 8), // Added spacing between icons
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red, size: 28), // Increased icon size
+                  onPressed: () => controller.deleteCategory(id: data.id),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Bottom Sheet for Updating Category
+  void _showUpdateCategoryBottomSheet(
+      CategoryModel data, CategoryController controller) {
+    final TextEditingController categoryController =
+        TextEditingController(text: data.name);
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    Get.bottomSheet(
+      Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20), // Increased padding
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Update Category",
+                style: TextStyle(
+                  fontSize: 22, // Increased font size
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16), // Increased spacing
+              TextFormField(
+                controller: categoryController,
+                validator: (val) => val!.isEmpty ? "Required" : null,
+                decoration: InputDecoration(
+                  labelText: "Category",
+                  labelStyle: const TextStyle(fontSize: 16), // Increased label size
+                  hintText: "Enter category...",
+                  hintStyle: const TextStyle(fontSize: 16), // Increased hint size
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.teal),
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20), // Better padding
+                ),
+                style: const TextStyle(fontSize: 16), // Increased text size
+              ),
+              const SizedBox(height: 16), // Increased spacing
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 12, // Increased spacing
+                    mainAxisSpacing: 12, // Increased spacing
+                  ),
+                  itemCount: categoryImage.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => controller.changeIndex(index: index),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12), // Increased border radius
+                        border: Border.all(
+                          color: (controller.categoryIndex == index)
+                              ? Colors.teal
+                              : Colors.transparent,
+                          width: 2, // Increased border width
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage(categoryImage[index]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16), // Increased spacing
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate() &&
+                        controller.categoryIndex != null) {
+                      final String name = categoryController.text;
+                      final String assetPath =
+                          categoryImage[controller.categoryIndex!];
+                      final ByteData byteData = await rootBundle.load(assetPath);
+                      final Uint8List image = byteData.buffer.asUint8List();
+
+                      final CategoryModel model = CategoryModel(
+                        id: data.id,
+                        name: name,
+                        image: image,
+                        imageId: controller.categoryIndex!,
+                      );
+
+                      controller.updateCategory(model: model);
+                      Get.back();
+                    }
+                  },
+                  icon: const Icon(Icons.save, color: Colors.white, size: 24), // Increased icon size
+                  label: const Text(
+                    "Update",
+                    style: TextStyle(color: Colors.white, fontSize: 18), // Increased text size
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Better padding
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
