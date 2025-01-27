@@ -30,16 +30,14 @@ class _SplashScreenState extends State<SplashScreen>
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.5,
-            curve: Curves.easeInOut), // Fade in first half
+        curve: const Interval(0.0, 0.5, curve: Curves.easeInOut),
       ),
     );
 
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 0.5,
-            curve: Curves.easeInOutBack), // Scale in first half
+        curve: const Interval(0.0, 0.5, curve: Curves.easeInOutBack),
       ),
     );
 
@@ -47,16 +45,14 @@ class _SplashScreenState extends State<SplashScreen>
     _textFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.5, 1.0,
-            curve: Curves.easeInOut), // Fade in second half
+        curve: const Interval(0.5, 1.0, curve: Curves.easeInOut),
       ),
     );
 
     _textScaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.5, 1.0,
-            curve: Curves.easeInOutBack), // Scale in second half
+        curve: const Interval(0.5, 1.0, curve: Curves.easeInOutBack),
       ),
     );
 
@@ -85,6 +81,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -104,8 +103,8 @@ class _SplashScreenState extends State<SplashScreen>
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: Container(
-                    width: 150,
-                    height: 150,
+                    width: screenWidth * 0.4, // Responsive width
+                    height: screenHeight * 0.2, // Responsive height
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/bg/bg.png'),
@@ -121,32 +120,33 @@ class _SplashScreenState extends State<SplashScreen>
                 scale: _textScaleAnimation,
                 child: FadeTransition(
                   opacity: _textFadeAnimation,
-                  child: const Text(
+                  child: Text(
                     'Welcome to Budget Tracker',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: screenWidth * 0.06, // Responsive font size
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 53, 253, 233),
-                      shadows: [
+                      color: const Color.fromARGB(255, 53, 253, 233),
+                      fontFamily: 'CustomFont', // Use a custom font
+                      shadows: const [
                         Shadow(
-                          color: Colors.black, // Outline color
-                          offset: Offset(1, 1), // Shadow position
-                          blurRadius: 2, // Blur radius for the outline
+                          color: Colors.black,
+                          offset: Offset(1, 1),
+                          blurRadius: 2,
                         ),
                         Shadow(
-                          color: Colors.black, // Outline color
-                          offset: Offset(-1, -1), // Shadow position
-                          blurRadius: 2, // Blur radius for the outline
+                          color: Colors.black,
+                          offset: Offset(-1, -1),
+                          blurRadius: 2,
                         ),
                         Shadow(
-                          color: Colors.black, // Outline color
-                          offset: Offset(1, -1), // Shadow position
-                          blurRadius: 2, // Blur radius for the outline
+                          color: Colors.black,
+                          offset: Offset(1, -1),
+                          blurRadius: 2,
                         ),
                         Shadow(
-                          color: Colors.black, // Outline color
-                          offset: Offset(-1, 1), // Shadow position
-                          blurRadius: 2, // Blur radius for the outline
+                          color: Colors.black,
+                          offset: Offset(-1, 1),
+                          blurRadius: 2,
                         ),
                       ],
                     ),
