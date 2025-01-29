@@ -1,7 +1,6 @@
 import 'package:budget_tracker_app/helper/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../model/spending_model.dart';
 
 class SpendingController extends GetxController {
