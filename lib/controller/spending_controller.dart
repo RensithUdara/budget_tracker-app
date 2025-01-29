@@ -64,7 +64,7 @@ class SpendingController extends GetxController {
     int? res = await DBHelper.dbHelper.updateSpending(model: model);
     if (res != null) {
       getSpendingData();
-      Get.snackbar('Updating Spending', 'Spending updated Completed.',
+      Get.snackbar('Updating Spending', 'Spending updated Completed',
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
           backgroundColor: Colors.green);
@@ -81,7 +81,7 @@ class SpendingController extends GetxController {
     int? res = await DBHelper.dbHelper.deleteSpending(id: id);
     if (res != null) {
       getSpendingData();
-      Get.snackbar('Deleting Spending', 'Spending delete Completed.',
+      Get.snackbar('Deleting Spending', 'Spending delete Completed',
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
           backgroundColor: Colors.green);
