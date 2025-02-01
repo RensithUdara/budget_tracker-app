@@ -97,13 +97,14 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Image with fade and scale animation
               ScaleTransition(
                 scale: _scaleAnimation,
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: Container(
-                    width: screenWidth * 0.4, 
-                    height: screenHeight * 0.2, 
+                    width: screenWidth * 0.4, // Responsive width
+                    height: screenHeight * 0.2, // Responsive height
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/bg/bg.png'),
@@ -113,7 +114,8 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
               ),
-              const SizedBox(height: 20), 
+              const SizedBox(height: 20), // Spacing between image and text
+              // Text with fade and scale animation
               ScaleTransition(
                 scale: _textScaleAnimation,
                 child: FadeTransition(
@@ -121,10 +123,10 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Text(
                     'Welcome to Budget Tracker',
                     style: TextStyle(
-                      fontSize: screenWidth * 0.06,
+                      fontSize: screenWidth * 0.06, // Responsive font size
                       fontWeight: FontWeight.bold,
                       color: const Color.fromARGB(255, 53, 253, 233),
-                      fontFamily: 'CustomFont',
+                      fontFamily: 'CustomFont', // Use a custom font
                       shadows: const [
                         Shadow(
                           color: Colors.black,
