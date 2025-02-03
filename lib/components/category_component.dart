@@ -63,7 +63,7 @@ class CategoryComponent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Enter Category Name: ',
+                'Enter Category Name:',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 10),
@@ -76,7 +76,7 @@ class CategoryComponent extends StatelessWidget {
                   return null;
                 },
                 decoration: InputDecoration(
-                  hintText: 'Category Name ',
+                  hintText: 'Category Name',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
