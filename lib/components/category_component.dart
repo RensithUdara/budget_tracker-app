@@ -39,6 +39,7 @@ List<String> categoryImage = [
 
 GlobalKey<FormState> formKey = GlobalKey<FormState>();
 TextEditingController categoryController = TextEditingController();
+
 class CategoryComponent extends StatelessWidget {
   const CategoryComponent({super.key});
 
@@ -167,7 +168,7 @@ class CategoryComponent extends StatelessWidget {
                       controller.updateIndex();
                     },
                     child: const Text(
-                      'Add a Category',
+                      'Add Category',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
