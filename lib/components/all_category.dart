@@ -244,17 +244,17 @@ class AllCategory extends StatelessWidget {
                       Get.back();
                     }
                   },
-                  icon: const Icon(Icons.save, color: Colors.white, size: 24), 
+                  icon: const Icon(Icons.save, color: Colors.white, size: 24), // Increased icon size
                   label: const Text(
                     "Update",
-                    style: TextStyle(color: Colors.white, fontSize: 18), 
+                    style: TextStyle(color: Colors.white, fontSize: 18), // Increased text size
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Better padding
                   ),
                 ),
               ),
